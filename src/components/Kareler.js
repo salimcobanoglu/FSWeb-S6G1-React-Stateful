@@ -11,6 +11,7 @@ Aşaıdaki yorumları takip edin.
 */
 
 import React from "react";
+import { useState } from "react";
 
 //Bu değişkeni YALNIZCA bir durum dilimini yüklemek için kullanın!
 const KareIdListesi = ["sqA", "sqB", "sqC", "sqD"];
@@ -21,19 +22,24 @@ export default function Kareler() {
   // kareyi gözlemleyecek. Sayfa yüklendiğinde aktif kare olmayacak,
   // yani  'aktifKare' null olmalı.
 
+  const [kareler, setKareler] = useState(KareIdListesi);
+  const [aktifKare, setAktifKare] = useState(null);
+
   const ClassAdiAl = (id) => {
+    return id === aktifKare ? "active" : "";
     // Bu bir click handler değildir, JSX içinde kullanılan bir yardımcıdır(helper).(aşağıya bakın)
     // Eğer argüman olarak verilen id aktif kare state'indeki id ile eşleşirse, class adı 'active' olan bir string döndürecek
     // diğer durumlar için boş döndürecek.
     // Etkisini görmek için kareye sağ tıklayın ve "öğeyi inceleyin".
-    return "";
   };
 
   const AktifEt = (id) => {
-    // Bu bir _satır içinden çağırılmış_ click handler yardımcısıdır.
-    // id bağımsız değişkenini, stateteki aktif id olacak şekilde ayarlayın
-    // eğer zaten aktifse, o zaman önce state i resetlemeliyiz.
+    setAktifKare(id === aktifKare ? null : id);
   };
+
+  // Bu bir _satır içinden çağırılmış_ click handler yardımcısıdır.
+  // id bağımsız değişkenini, stateteki aktif id olacak şekilde ayarlayın
+  // eğer zaten aktifse, o zaman önce state i resetlemeliyiz.
 
   return (
     <div className="widget-squares container">
